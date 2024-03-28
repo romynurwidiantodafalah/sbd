@@ -1,0 +1,17 @@
+CREATE TABLE emp (empno INT PRIMARY KEY, ename VARCHAR(10), job VARCHAR(10), mgr INT, hiredate DATE, sal INT, comm INT, deptno INT);
+CREATE TABLE dept (deptno INT PRIMARY KEY, dname VARCHAR(10), location VARCHAR(10));
+
+
+TABLE emp:
+
+insert into emp values('7369','SMITH','CLERK','7902','1980-12-17','1000','0','20'), ('7499','ALLEN','SALESMAN','7698','1981-02-20','1600','300','30'), ('7521','WARDS','SALESMAN','7698','1981-02-22','1250','500','30'), ('7566','JONES','MANAGER','7839','1981-04-02','2975','0','20'), ('7654','MARTIN','SALESMAN','7698','1981-09-28','1250','1400','30'), ('7698','BLAKE','MANAGER','7839','1981-03-01','2850','0','30'), ('7782','SCOTT','MANAGER','7839','1981-06-09','2450','0','10'), ('7788','CLARK','ANALYST','7566','1981-04-19','3000','0','20'), ('7839','KING','PRESIDENT','NULL','1981-10-17','5000','0','10'), ('7844','TURNER','SALESMAN','7698','1981-09-08','1500','0','30'), ('7876','ADAMS','CLERK','7788','1987-05-23','1100','0','20'), ('7900','JAMES','CLERK','7698','1981-12-03','950','0','30'), ('7902','FORD','ANALYST','7566','1981-12-03','3000','0','20'), ('7934','MILLER','CLERK','7782','1982-01-23','1300','0','10'), ('8000','JONO','SALESMAN','7698','1988-03-28','1500','0','50');
+
+TABLE dept:
+
+insert into dept values('10','ACCOUNTING','NEW YORK'), ('20','RESEARCH','DALLAS'), ('30','SALES','CHICAGO'), ('40','OPERATION','BOSTON');
+
+2.CREATE VIEW gaji_tinggi AS SELECT ename FROM emp WHERE sal = (SELECT MAX(sal) FROM emp);
+3.CREATE VIEW hiredate_tua AS SELECT ename FROM emp WHERE hiredate = (SELECT MIN(hiredate) FROM emp);
+4.CREATE VIEW pegawai_dname AS SELECT e.ename FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.dname = 'SALES';
+5.CREATE VIEW gaji_akunting_kecil AS SELECT e.ename FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.dname = 'ACCOUNTING' AND e.sal = (SELECT MIN(sal) FROM emp WHERE deptno = d.deptno);
+6.CREATE VIEW gaji_sales_tinggi AS SELECT e.ename FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.dname = 'SALES' AND e.sal = (SELECT MAX(sal) FROM emp WHERE deptno = d.deptno);
